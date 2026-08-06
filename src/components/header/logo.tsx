@@ -1,8 +1,9 @@
 function Logo() {
     return (
-        <header>
-
-        </header>
+        <div>
+            <img></img>
+            <span></span>
+        </div>
     )
 }
 

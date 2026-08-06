@@ -1,8 +1,6 @@
 function Hero() {
     return (
-        <header>
-
-        </header>
+       <img></img>
     )
 }
 

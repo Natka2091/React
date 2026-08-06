@@ -1,8 +1,6 @@
 function CardImage() {
     return (
-        <header>
-
-        </header>
+        <img></img>
     )
 }
 

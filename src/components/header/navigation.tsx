@@ -1,8 +1,6 @@
 function Navigation() {
     return (
-        <header>
-
-        </header>
+        <nav></nav>
     )
 }
 
