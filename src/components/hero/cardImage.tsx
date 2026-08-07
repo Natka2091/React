@@ -1,7 +1,8 @@
-function CardImage() {
+import card from "../../assets/images/cardImage.png"
+
+export function CardImage() {
     return (
-        <img></img>
+        <img src={card} alt="Mastercard" className="w-[420px]"></img>
     )
 }
 
-export default CardImage;

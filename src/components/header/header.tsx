@@ -1,15 +1,15 @@
-import Logo from "./Logo";
-import Navigation from "./Navigation";
-import PersonalAccount from "./PersonalAccountMenu";
+import {Logo} from "./Logo";
+import {Navigation} from "./Navigation";
+import {PersonalAccountMenu} from "./PersonalAccountMenu";
 
-function Header() {
+export function Header() {
     return (
-        <header className="flex items-center justify-between py-6 px-6">
+        <header className="flex items-center justify-between p-10">
             <Logo />
             <Navigation />
-            <PersonalAccount />
+            <PersonalAccountMenu />
         </header>
     );
 }
 
-export default Header;
+

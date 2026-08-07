@@ -1,22 +1,34 @@
-function Navigation() {
+const navigationItems = [
+  {
+    title: "Послуги",
+    href: "#",
+  },
+  {
+    title: "Конвертер валют",
+    href: "#",
+  },
+  {
+    title: "Контакти",
+    href: "#",
+  },
+  {
+    title: "Задати питання",
+    href: "#",
+  },
+];
+
+export function Navigation() {
     return (
         <nav>
             <ul className="flex gap-8 items-center">
-                <li>
-                    <a href="#" className="text-sm font-medium">Послуги</a>
-                </li>
-                <li>
-                    <a href="#" className="text-sm font-medium">Конвертер валют</a>
-                </li>
-                <li>
-                    <a href="#" className="text-sm font-medium">Контакти</a>
-                </li>
-                <li>
-                    <a href="#" className="text-sm font-medium">Задати питання</a>
-                </li>
+                {navigationItems.map((item) => (
+                    <li key={item.title}>
+                        <a href={item.title} className="hover:text-blue-600 transition-colors">
+                            {item.title}
+                        </a>
+                    </li>
+                ))}
             </ul>
         </nav>
-    );
+    )
 }
-
-export default Navigation;

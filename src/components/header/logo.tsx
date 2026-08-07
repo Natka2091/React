@@ -1,11 +1,15 @@
 import logo from "../../assets/icons/mainIcon.png";
-function Logo() {
+import backlogo from "../../assets/icons/mainIconBackFon.png";
+
+export function Logo() {
     return (
         <a href="/" className="flex items-center gap-2">
-            <img src={logo} alt="Логотип Чіп Чендж" />
-            <span>Чіп Чендж</span>
+            <div className="relative">
+                <img src={logo} alt="Логотип Чіп Чендж" className="absolute"/>
+                <img src={backlogo}/>
+            </div>
+            <span className="font-bold">Чіп Чендж</span>
         </a>
     );
 }
 
-export default Logo;
