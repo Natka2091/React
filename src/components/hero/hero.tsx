@@ -4,7 +4,7 @@ import { CardImage } from "./CardImage";
 
 export function Hero() {
     return (
-        <section className="relative h-[400px] bg-cover bg-center"
+        <section className="relative h-100 bg-cover bg-center"
             style={{backgroundImage: `url(${heroBackground})`,}}>
         <div className="max-w-6xl mx-auto h-full px-8 flex items-center justify-between">
             <HeroContent />
