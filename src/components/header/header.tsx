@@ -1,6 +1,6 @@
-import {Logo} from "./Logo";
-import {Navigation} from "./Navigation";
-import {PersonalAccountMenu} from "./PersonalAccountMenu";
+import { Logo } from "./Logo";
+import { Navigation } from "./Navigation";
+import { PersonalAccountMenu } from "./PersonalAccountMenu";
 
 export function Header() {
     return (

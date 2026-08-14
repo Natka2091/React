@@ -3,5 +3,5 @@ export function convertCurrency(
     fromRate: number,
     toRate: number
 ) {
-    return (amount / fromRate) * toRate;
+    return (amount * fromRate) / toRate;
 }

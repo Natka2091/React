@@ -6,7 +6,7 @@ export function FooterLogo() {
         <div>
             <div className="flex items-center gap-2">
                 <div className="relative w-7 h-7 shrink-0">
-                    <img src={mainIconBackFon} alt="" className="absolute inset-0 w-full h-full object-contain" />
+                    <img src={mainIconBackFon} className="absolute inset-0 w-full h-full object-contain" />
                     <img src={logo} alt="Чіп Чендж" className="absolute inset-0 w-full h-full object-contain" />
                 </div>
 
