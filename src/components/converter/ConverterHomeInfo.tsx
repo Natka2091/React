@@ -18,8 +18,7 @@ export function ConverterHomeInfo({
 
       <button
         onClick={onOpen}
-        className="w-58,5 h-13,25 rounded bg-[#2F37F4] text-white text-lg font-semibold hover:bg-[#2630dd] transition-colors"
-      >
+        className="w-60 h-15 rounded bg-[#2F37F4] text-white text-s font-semibold hover:bg-[#2630D8] transition">
         Конвертувати валюту
       </button>
     </div>

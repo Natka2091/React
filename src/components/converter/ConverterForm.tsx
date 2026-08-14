@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getRates } from "./api";
-import { convertCurrency } from "./converter";
+import { convertCurrency } from "./conversionUtils";
 import { currencies } from "./constants";
 import type { Currency, HistoryItem } from "./types";
 import { ConverterHistory } from "./ConverterHistory";
@@ -18,13 +18,13 @@ export function ConverterForm() {
     const [result, setResult] = useState(0);
     const [history, setHistory] = useState<HistoryItem[]>([]);
 
-    // Завантажуємо курси НБУ
+    {/* Завантажуємо курси НБУ */}
 
     useEffect(() => {
         getRates().then(setRates);
     }, []);
 
-    // Автоматичний перерахунок
+    {/* Автоматичний перерахунок */}
 
     useEffect(() => {
         const value = convertCurrency(
@@ -35,7 +35,7 @@ export function ConverterForm() {
         setResult(Number(value.toFixed(2)));
     }, [amount, from, to, rates]);
 
-    // Зберегти результат
+    {/* Зберегти результат */}
 
     function saveResult() {
         const item: HistoryItem = {
@@ -49,7 +49,7 @@ export function ConverterForm() {
         setHistory((prev) => [item, ...prev]);
     }
 
-    // Поміняти валюти місцями
+    {/* Поміняти валюти місцями */}
 
     function swapCurrencies() {
         setFrom(to);
@@ -75,7 +75,7 @@ export function ConverterForm() {
                                     value={amount}
                                     onChange={(e) =>
                                         setAmount(Number(e.target.value))
-                                    } className="w-[130px] h-11 rounded border border-[#D8DFE6] px-4 outline-none focus:border-[#2F37F4]"/>
+                                    } className="w-32.5 h-11 rounded border border-[#D8DFE6] px-4 outline-none focus:border-[#2F37F4]"/>
                                 <select
                                     value={from}
                                     onChange={(e) =>
@@ -135,7 +135,7 @@ export function ConverterForm() {
                     </div>
                 </div>
             </section>
-            {/* ================= Історія ================= */}
+            {/* Історія */}
             <section className="mt-16 p-8">
                 <div className="bg-[#F6F7FF] rounded p-10">
                     <div className="flex justify-between items-center mb-8">

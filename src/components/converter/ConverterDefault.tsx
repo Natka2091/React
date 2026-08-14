@@ -7,7 +7,7 @@ type ConverterDefaultProps = {
 
 export function ConverterDefault({ onOpen }: ConverterDefaultProps) {
   return (
-    <div className="max-w-6xl mx-auto flex items-center justify-between gap-20 px-6">
+    <div className="max-w-5xl mx-auto flex items-center justify-between gap-10 px-6">
       <ConverterHomeInfo onOpen={onOpen} />
 
       <div className="shrink-0">
