@@ -6,11 +6,19 @@ import { convertCurrency } from './utils';
 export function ConverterForm() {
     const currencyNames = Object.keys(rates) as Currency[];
 
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState("");
+    const [fromCurrency, setFromCurrency] = useState<Currency>("UAH");
+    const [toCurrency, setToCurrency] = useState<Currency>("USD")
 
-    function amountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAmount(Number(event.currentTarget.value))
+    const amountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAmount(event.currentTarget.value)
     }
+    const result = convertCurrency(
+        Number(amount),
+        rates[fromCurrency],
+        rates[toCurrency],
+    ).toFixed(2)
+
     return (
         <div className="max-w-6xl mx-auto bg-[#F6F7FF]">
             <section className="rounded p-16">
@@ -29,7 +37,12 @@ export function ConverterForm() {
                                 value={amount}
                                 onChange={amountChange}
                                 />
-                                <select className="w-18 h-11 rounded border border-[#D8DFE6] bg-white px-2">
+                                <select className="w-18 h-11 rounded border border-[#D8DFE6] bg-white px-2"
+                                    value={fromCurrency}
+                                    onChange={(event) => 
+                                        setFromCurrency(event.currentTarget.value as Currency)
+                                        }
+                                >
                                     {currencyNames.map((currency) => 
                                     <option key={currency} value={currency}>
                                         {currency}
@@ -46,12 +59,17 @@ export function ConverterForm() {
                                 Хочу придбати:
                             </label>
                             <div className="flex gap-2">
-                                <input
-                                    readOnly
-                                    className="w-32.5 h-11 rounded border border-[#D8DFE6] bg-[#FAFAFA] px-4"
+                                <input className="w-32.5 h-11 rounded border border-[#D8DFE6] bg-[#FAFAFA] px-4"
+                                readOnly
+                                type="number"
+                                value={result}
                                 />
-                                <select
-                                    className="w-18 h-11 rounded border border-[#D8DFE6] bg-white px-2">
+                                <select className="w-18 h-11 rounded border border-[#D8DFE6] bg-white px-2"
+                                    value={toCurrency}
+                                    onChange={(event) => 
+                                        setToCurrency(event.currentTarget.value as Currency)
+                                        }
+                                >
                                         {currencyNames.map((currency) => 
                                     <option key={currency} value={currency}>
                                         {currency}
