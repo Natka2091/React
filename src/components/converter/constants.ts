@@ -5,3 +5,4 @@ export const rates = {
 } as const;
 
 export type Currency = keyof typeof rates;
+export const currencyNames = Object.keys(rates) as Currency[];

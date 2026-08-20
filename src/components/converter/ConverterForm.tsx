@@ -1,12 +1,11 @@
 import {useState} from 'react'
 import { rates, type Currency } from './constants'
 import { convertCurrency } from './utils';
-
+import { currencyNames } from './constants';
 
 export function ConverterForm() {
-    const currencyNames = Object.keys(rates) as Currency[];
 
-    const [amount, setAmount] = useState("");
+    const [amount, setAmount] = useState<string>("");
     const [fromCurrency, setFromCurrency] = useState<Currency>("UAH");
     const [toCurrency, setToCurrency] = useState<Currency>("USD")
 
@@ -14,10 +13,10 @@ export function ConverterForm() {
         setAmount(event.currentTarget.value)
     }
     const result = convertCurrency(
-        Number(amount),
+        amount,
         rates[fromCurrency],
         rates[toCurrency],
-    ).toFixed(2)
+    )
 
     return (
         <div className="max-w-6xl mx-auto bg-[#F6F7FF]">

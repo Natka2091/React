@@ -1,7 +1,7 @@
 export function convertCurrency(
-    amount: number,
+    amount: string,
     fromRate: number,
     toRate: number
-) {
-    return (amount * fromRate) / toRate;
+):string {
+    return ((+amount * fromRate) / toRate).toFixed(2);
 }
