@@ -1,22 +1,17 @@
-import converterImage from "../../assets/images/converterDefaultImg.png";
-import { ConverterHomeInfo } from "./ConverterHomeInfo";
+import converterDefaultImg from '../../assets/images/converterDefaultImg.png'
 
-type ConverterDefaultProps = {
-  onOpen: () => void;
-};
-
-export function ConverterDefault({ onOpen }: ConverterDefaultProps) {
-  return (
-    <div className="max-w-5xl mx-auto flex items-center justify-between gap-10 px-6">
-      <ConverterHomeInfo onOpen={onOpen} />
-
-      <div className="shrink-0">
-        <img
-          src={converterImage}
-          alt="Конвертер валют"
-          className="w-95 h-75 object-cover rounded"
-        />
-      </div>
-    </div>
-  );
+export function ConverterDefault() {
+    return (
+        <section className="max-w-6xl mx-auto flex items-center justify-center gap-16 pt-24 pb-12">
+            <div className="w-90">
+                <h2 className="text-[32px] font-bold leading-tight text-gray-900 mb-5">Конвертер валют</h2>
+                <p className="text-[18px] leading-7 text-gray-500 mb-8">Переважна діяльність банківської <br />
+                групи за останні чотири звітні квартали <br />
+                становить 50 і більше відсотків
+                </p>
+                <a href="#" className="inline-block bg-indigo-600 text-white font-semibold px-7 py-4 rounded hover:bg-indigo-700 transition">Конвертувати валюту</a>
+            </div>
+            <img src={converterDefaultImg} alt="Конвертер валют" className="w-90 h-65 object-cover rounded" />
+        </section>
+    )
 }

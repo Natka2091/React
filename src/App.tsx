@@ -1,7 +1,7 @@
 import './App.css'
-import { ConverterSection } from "./components/converter/Converter";
 import { Header } from './components/header/Header';
 import { Hero } from "./components/hero/Hero";
+import { Converter } from './components/converter/Converter';
 import { Footer } from "./components/footer/Footer";
 
 export function App() {
@@ -9,7 +9,7 @@ export function App() {
     <>
     <Header />
     <Hero />
-    <ConverterSection />
+    <Converter />
     <Footer />
     </>
   );
