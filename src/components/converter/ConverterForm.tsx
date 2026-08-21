@@ -1,7 +1,6 @@
-import {useState} from 'react'
-import { rates, type Currency } from './constants'
+import {useEffect, useState} from 'react'
+import { currencies, type Currency, type BankRate} from './constants'
 import { convertCurrency } from './utils';
-import { currencyNames } from './constants';
 
 export function ConverterForm() {
 
@@ -9,15 +8,32 @@ export function ConverterForm() {
     const [fromCurrency, setFromCurrency] = useState<Currency>("UAH");
     const [toCurrency, setToCurrency] = useState<Currency>("USD")
 
+    const [currensy, setCurrensy] = useState<BankRate[]>([]);
+
     const amountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAmount(event.currentTarget.value)
     }
     const result = convertCurrency(
         amount,
-        rates[fromCurrency],
-        rates[toCurrency],
+        currensy[fromCurrency],
+        currensy[toCurrency],
     )
-
+    useEffect(() => {
+        const focusElement = document.getElementById('input');
+        focusElement?.focus();
+    }, []);
+    useEffect(() => {
+        const getBankRates = async() => {
+            try {
+                const response = await fetch('https://bank.gov.ua/NBU_Exchange/exchange?json');
+                const data = await response.json();
+                setCurrensy(data);
+            } catch (error) {
+                console.error('Помилка отримання даних', error);
+            }        
+        }
+        getBankRates();
+    }, []);
     return (
         <div className="max-w-6xl mx-auto bg-[#F6F7FF]">
             <section className="rounded p-16">
@@ -31,7 +47,7 @@ export function ConverterForm() {
                                 В мене є:
                             </label>
                             <div className="flex gap-2">
-                                <input className="w-32.5 h-11 rounded border border-[#D8DFE6] px-4 outline-none focus:border-[#2F37F4]"
+                                <input id="input" className="w-32.5 h-11 rounded border border-[#D8DFE6] px-4 outline-none focus:border-[#2F37F4]"
                                 type="number"
                                 value={amount}
                                 onChange={amountChange}
@@ -42,7 +58,7 @@ export function ConverterForm() {
                                         setFromCurrency(event.currentTarget.value as Currency)
                                         }
                                 >
-                                    {currencyNames.map((currency) => 
+                                    {currencies.map((currency) => 
                                     <option key={currency} value={currency}>
                                         {currency}
                                     </option>)}
@@ -69,7 +85,7 @@ export function ConverterForm() {
                                         setToCurrency(event.currentTarget.value as Currency)
                                         }
                                 >
-                                        {currencyNames.map((currency) => 
+                                        {currencies.map((currency) => 
                                     <option key={currency} value={currency}>
                                         {currency}
                                     </option>)}
@@ -89,4 +105,4 @@ export function ConverterForm() {
                 </div>
             </section>
         </div>
-)}
+)} 
