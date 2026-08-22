@@ -6,7 +6,11 @@ export const currencies = [
 
 export type Currency = (typeof currencies) [number];
 
-export type BankRate = {
+export type BankRates = {
     cc: Currency;
     rate: number;
+};
+
+export type ConverterDefaultProps = {
+  onOpen: () => void;
 };

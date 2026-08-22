@@ -1,22 +1,31 @@
 import {useEffect, useState} from 'react'
-import { currencies, type Currency, type BankRate} from './constants'
+import { currencies, type Currency, type BankRates} from './constants'
 import { convertCurrency } from './utils';
 
 export function ConverterForm() {
 
     const [amount, setAmount] = useState<string>("");
     const [fromCurrency, setFromCurrency] = useState<Currency>("UAH");
-    const [toCurrency, setToCurrency] = useState<Currency>("USD")
+    const [toCurrency, setToCurrency] = useState<Currency>("USD");
 
-    const [currensy, setCurrensy] = useState<BankRate[]>([]);
+    const [currenсy, setCurrensy] = useState<BankRates[]>([]);
 
     const amountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAmount(event.currentTarget.value)
     }
+    const fromRate = currenсy.find((bankRate) => bankRate.cc === fromCurrency)?.rate ?? 1;
+    const toRate = currenсy.find((bankRate) => bankRate.cc === toCurrency)?.rate ?? 1;
+
+    console.log(currenсy);
+console.log(fromCurrency);
+console.log(toCurrency);
+console.log(fromRate);
+console.log(toRate);
+
     const result = convertCurrency(
         amount,
-        currensy[fromCurrency],
-        currensy[toCurrency],
+        fromRate,
+        toRate,
     )
     useEffect(() => {
         const focusElement = document.getElementById('input');
@@ -27,7 +36,10 @@ export function ConverterForm() {
             try {
                 const response = await fetch('https://bank.gov.ua/NBU_Exchange/exchange?json');
                 const data = await response.json();
-                setCurrensy(data);
+                setCurrensy([
+                    {cc: "UAH", rate: 1},
+                    ...data,
+                ]);
             } catch (error) {
                 console.error('Помилка отримання даних', error);
             }        

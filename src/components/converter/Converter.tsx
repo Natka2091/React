@@ -10,7 +10,7 @@ const [pageOpen, setPageOpen] = useState<boolean>(false);
     {pageOpen ? (
       <ConverterForm />
     ) : (
-      <ConverterDefault />
+      <ConverterDefault onOpen={() => setPageOpen(true)}/>
     )}
     </>
   );
