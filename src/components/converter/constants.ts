@@ -1,14 +1,8 @@
-export const currencies = [
-    "UAH",
-    "USD",
-    "EUR",
- ] as const;
-
-export type Currency = (typeof currencies) [number];
+export type Currency = string;
 
 export type BankRates = {
-    cc: Currency;
-    rate: number;
+    CurrencyCodeL: Currency;
+    Amount: number;
 };
 
 export type ConverterDefaultProps = {

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { currencies, type Currency, type BankRates} from './constants'
+import { type Currency, type BankRates} from './constants'
 import { convertCurrency } from './utils';
 
 export function ConverterForm() {
@@ -8,44 +8,45 @@ export function ConverterForm() {
     const [fromCurrency, setFromCurrency] = useState<Currency>("UAH");
     const [toCurrency, setToCurrency] = useState<Currency>("USD");
 
-    const [currenсy, setCurrensy] = useState<BankRates[]>([]);
+    const [currenсy, setCurrenсy] = useState<BankRates[]>([{CurrencyCodeL: "UAH", Amount: 1}]);
 
     const amountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAmount(event.currentTarget.value)
     }
-    const fromRate = currenсy.find((bankRate) => bankRate.cc === fromCurrency)?.rate ?? 1;
-    const toRate = currenсy.find((bankRate) => bankRate.cc === toCurrency)?.rate ?? 1;
-
-    console.log(currenсy);
-console.log(fromCurrency);
-console.log(toCurrency);
-console.log(fromRate);
-console.log(toRate);
+    const fromRate = currenсy.find((bankRate) => bankRate.CurrencyCodeL === fromCurrency)?.Amount ?? 1;
+    const toRate = currenсy.find((bankRate) => bankRate.CurrencyCodeL === toCurrency)?.Amount ?? 1;
 
     const result = convertCurrency(
         amount,
         fromRate,
         toRate,
     )
+
+    const currencies = currenсy.map((bankRate) => bankRate.CurrencyCodeL);
+
     useEffect(() => {
         const focusElement = document.getElementById('input');
         focusElement?.focus();
     }, []);
+
     useEffect(() => {
         const getBankRates = async() => {
             try {
-                const response = await fetch('https://bank.gov.ua/NBU_Exchange/exchange?json');
+                const response = await fetch('/nbu/NBU_Exchange/exchange?json');
                 const data = await response.json();
-                setCurrensy([
-                    {cc: "UAH", rate: 1},
+                debugger
+                setCurrenсy([
+                    currenсy,
                     ...data,
                 ]);
+
             } catch (error) {
                 console.error('Помилка отримання даних', error);
             }        
         }
         getBankRates();
     }, []);
+
     return (
         <div className="max-w-6xl mx-auto bg-[#F6F7FF]">
             <section className="rounded p-16">
@@ -67,7 +68,7 @@ console.log(toRate);
                                 <select className="w-18 h-11 rounded border border-[#D8DFE6] bg-white px-2"
                                     value={fromCurrency}
                                     onChange={(event) => 
-                                        setFromCurrency(event.currentTarget.value as Currency)
+                                        setFromCurrency(event.currentTarget.value)
                                         }
                                 >
                                     {currencies.map((currency) => 
@@ -94,7 +95,7 @@ console.log(toRate);
                                 <select className="w-18 h-11 rounded border border-[#D8DFE6] bg-white px-2"
                                     value={toCurrency}
                                     onChange={(event) => 
-                                        setToCurrency(event.currentTarget.value as Currency)
+                                        setToCurrency(event.currentTarget.value)
                                         }
                                 >
                                         {currencies.map((currency) => 
