@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
-import { type Currency, type BankRates} from './constants'
+import { type Currency, type BankRates, type HistoryItem} from './constants'
 import { convertCurrency } from './utils';
+import { useConverterStore } from '../../stores/app';
 
 export function ConverterForm() {
 
@@ -8,11 +9,16 @@ export function ConverterForm() {
     const [fromCurrency, setFromCurrency] = useState<Currency>("UAH");
     const [toCurrency, setToCurrency] = useState<Currency>("USD");
 
-    const [currenсy, setCurrenсy] = useState<BankRates[]>([{CurrencyCodeL: "UAH", Amount: 1}]);
+    const [currenсy, setCurrenсy] = useState<BankRates[]>([]);
 
     const amountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAmount(event.currentTarget.value)
     }
+    const changeCurrency = () => {
+        setFromCurrency(toCurrency);
+        setToCurrency(fromCurrency);
+    };
+
     const fromRate = currenсy.find((bankRate) => bankRate.CurrencyCodeL === fromCurrency)?.Amount ?? 1;
     const toRate = currenсy.find((bankRate) => bankRate.CurrencyCodeL === toCurrency)?.Amount ?? 1;
 
@@ -23,6 +29,23 @@ export function ConverterForm() {
     )
 
     const currencies = currenсy.map((bankRate) => bankRate.CurrencyCodeL);
+
+    const addHistory = useConverterStore(
+        (state) => state.addHistory
+    );
+
+    const saveResult = () => {
+        const historyItem: HistoryItem = {
+            id: Date.now(),
+            amount: Number(amount),
+            from: fromCurrency,
+            to: toCurrency,
+            result: Number(result),
+            date: new Date().toLocaleDateString(),
+        };
+
+        addHistory(historyItem);
+    };
 
     useEffect(() => {
         const focusElement = document.getElementById('input');
@@ -36,7 +59,7 @@ export function ConverterForm() {
                 const data = await response.json();
                 debugger
                 setCurrenсy([
-                    currenсy,
+                    {CurrencyCodeL: "UAH", Amount: 1},
                     ...data,
                 ]);
 
@@ -48,9 +71,9 @@ export function ConverterForm() {
     }, []);
 
     return (
-        <div className="max-w-6xl mx-auto bg-[#F6F7FF]">
-            <section className="rounded p-16">
-                <div className="w-full mx-auto rounded bg-white px-12 py-10 shadow-sm">
+    <div className="w-full bg-[#F6F7FF]">
+        <section className="max-w-6xl mx-auto p-16">
+            <div className="w-full mx-auto rounded bg-white px-12 py-10 shadow-sm">
                     <h2 className="text-[40px] font-bold text-[#202020] mb-10">
                         Конвертер валют
                     </h2>
@@ -79,6 +102,7 @@ export function ConverterForm() {
                             </div>
                         </div>
                         <button
+                            onClick={changeCurrency}
                             className="pb-2 text-2xl text-[#707C87] hover:text-[#2F37F4] transition">
                             ⇄
                         </button>
@@ -111,7 +135,9 @@ export function ConverterForm() {
                             type="date"
                             className="w-42.5 h-11 rounded border border-[#D8DFE6] px-4"
                         />
-                        <button className="h-11 px-7 rounded bg-[#2F37F4] text-white font-semibold hover:bg-[#2430dc] transition">
+                        <button className="h-11 px-7 rounded bg-[#2F37F4] text-white font-semibold hover:bg-[#2430dc] transition"
+                         onClick={saveResult}
+                        >
                             Зберегти результат
                         </button>
                     </div>
