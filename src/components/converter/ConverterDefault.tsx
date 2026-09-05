@@ -1,8 +1,7 @@
 import converterDefaultImg from '../../assets/images/converterDefaultImg.png'
-import type { ConverterDefaultProps } from './constants'
+import { Link } from 'react-router';
 
-
-export function ConverterDefault({onOpen}: ConverterDefaultProps) {
+export function ConverterDefault() {
     return (
         <section className="max-w-6xl mx-auto flex items-center justify-center gap-16 pt-24 pb-12">
             <div className="w-90">
@@ -11,9 +10,13 @@ export function ConverterDefault({onOpen}: ConverterDefaultProps) {
                 групи за останні чотири звітні квартали <br />
                 становить 50 і більше відсотків
                 </p>
-                <a href="#" className="inline-block bg-indigo-600 text-white font-semibold px-7 py-4 rounded hover:bg-indigo-700 transition"
-                onClick={onOpen}
-                >Конвертувати валюту</a>
+
+                 <Link
+                    to="/converter"
+                    className="inline-block bg-indigo-600 text-white font-semibold px-7 py-4 rounded hover:bg-indigo-700 transition"
+                > 
+                    Конвертувати валюту 
+                </Link>
             </div>
             <img src={converterDefaultImg} alt="Конвертер валют" className="w-90 h-65 object-cover rounded" />
         </section>

@@ -1,7 +1,7 @@
 import { useConverterStore } from '../../stores/app';
 
 export function ConverterHistory() {
-  const history = useConverterStore(
+  const histories = useConverterStore(
     (state) => state.history
   );
 
@@ -29,7 +29,7 @@ export function ConverterHistory() {
         </div>
 
     <div className="grid grid-cols-2 gap-4">
-      {history.map((item) => (
+      {histories.map((item) => (
         <div
           key={item.id}
           className="flex items-center justify-between bg-white rounded px-5 py-3 shadow-sm"

@@ -9,7 +9,7 @@ export function ConverterForm() {
     const [fromCurrency, setFromCurrency] = useState<Currency>("UAH");
     const [toCurrency, setToCurrency] = useState<Currency>("USD");
 
-    const [currenсy, setCurrenсy] = useState<BankRates[]>([]);
+    const [currenсy, setCurrenсy] = useState<BankRates[]>([{CurrencyCodeL: "UAH", Amount: 1}]);
 
     const amountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAmount(event.currentTarget.value)
@@ -27,7 +27,7 @@ export function ConverterForm() {
         fromRate,
         toRate,
     )
-
+debugger
     const currencies = currenсy.map((bankRate) => bankRate.CurrencyCodeL);
 
     const addHistory = useConverterStore(
@@ -57,9 +57,9 @@ export function ConverterForm() {
             try {
                 const response = await fetch('/nbu/NBU_Exchange/exchange?json');
                 const data = await response.json();
-                debugger
+                
                 setCurrenсy([
-                    {CurrencyCodeL: "UAH", Amount: 1},
+                    ...currenсy,
                     ...data,
                 ]);
 

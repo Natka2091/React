@@ -1,19 +1,13 @@
-import './App.css'
-import { Header } from './components/header/Header';
-import { Hero } from "./components/hero/Hero";
-import { Converter } from './components/converter/Converter';
-import { Footer } from "./components/footer/Footer";
+import './App.css';
+import { Routes, Route } from 'react-router';
+import { Home } from './pages/Home';
+import { ConverterPage } from './pages/ConverterPage';
 
 export function App() {
   return (
-    <>
-    <Header />
-    <Hero />
-    <Converter />
-    <Footer />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/converter" element={<ConverterPage />} />
+    </Routes>
   );
 }
-
-
-

@@ -5,10 +5,6 @@ export type BankRates = {
     Amount: number;
 };
 
-export type ConverterDefaultProps = {
-  onOpen: () => void;
-};
-
 export type HistoryItem = {
     id: number;
     amount: number;
